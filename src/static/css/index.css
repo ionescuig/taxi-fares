@@ -1,0 +1,13 @@
+.jumbotron {
+    color: #F9FBFA;
+    background-color: #00693e;
+}
+
+.jumbotron > p {
+    color: #9cc5b4;
+}
+
+.main {
+    color: #000000;
+    background-color: #F9FBFA;
+}

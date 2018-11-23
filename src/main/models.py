@@ -8,7 +8,12 @@ class Tariff(models.Model):
     second      = models.DecimalField(max_digits=5, decimal_places=2)
     waitting    = models.DecimalField(max_digits=5, decimal_places=2)
 
+    def __str__(self):
+        return self.name
+
 
 class BankHoliday(models.Model):
-    date = models.DateTimeField()
+    date = models.DateField()
 
+    def __str__(self):
+        return self.date.strftime('%Y-%m-%d')
