@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load staticfiles %}
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -18,40 +19,37 @@
             <h1>Taxi Fare Calculator</h1>
             <h5>Hackney Carriage - Plymouth, UK</h5>
             <br>
-            <p>The fare is not fixed, is affected by the traffic and tolls.</p>
+            <p>
+                This is not an official site.
+                <br>
+                The fare is estimated and is affected by the traffic and tolls.
+            </p>
         </div>
 
-        <div class="jumbotron main">
-            <h4>Your journey:</h4>
-            <form class="form" method="POST">
-                {% csrf_token %}
-                <div class="form-group row">
-                    <label class="col-sm-2 col-form-label" for="date">Date</label>
-                    <input class="col-sm-4 form-control" id="date" type="date" name="date">
-                </div>
+        <div class="container row">
+            <div class="col-sm-6">
+                <form class="form" method="POST">
+                    {% csrf_token %}
+                    {% for field in form %}
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">{{ field.label }}</label>
+                            <div class="col-sm-4">
+                                {{ field }}
+                            </div>
+                        </div>
+                    {% endfor %}
 
-                <div class="form-group row">
-                    <label class="col-sm-2 col-form-label" for="time">Time</label>
-                    <input class="col-sm-4 form-control" id="time" type="time" name="time">
-                </div>
+                    <button class="btn btn-secondary" type="submit">Submit</button>
+                </form>
+            </div>
 
-                <div class="form-group row">
-                    <label class="col-sm-2 col-form-label" for="people">Number of persons</label>
-                    <select class="col-sm-4 form-control" name="people" id="people">
-                        <option selected>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                        <option>6</option>
-                        <option>7</option>
-                    </select>
-                </div>
+            <div class="col-sm-4">
+                Testing...
+            </div>
 
-                <button type="submit">Submit</button>
-
-            </form>
         </div>
+
+
     </div>
 
 
