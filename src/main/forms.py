@@ -1,13 +1,17 @@
 from django import forms
 from datetime import datetime
+
 from .models import Journey
 
 
-class JourneyForm(forms.Form):
-    when    = forms.DateTimeField(label='Date',
-                                  required=True,
-                                  widget=forms.SplitDateTimeWidget(date_format='%d/%m/%Y', time_format='%H:%m'),
-                                  initial=datetime.now)
+class JourneyForm(forms.ModelForm):
+    date    = forms.DateField(label='Date',
+                              required=True,
+                              widget=forms.SelectDateWidget(),
+                              initial=datetime.now)
+    hour    = forms.TimeField(label='Hour',required=True,
+                              widget=forms.TimeInput(format='%H:%M'),
+                              initial=datetime.now().strftime('%H:%M'))
     people  = forms.IntegerField(label='People',
                                  required=True,
                                  min_value=1,
@@ -25,7 +29,8 @@ class JourneyForm(forms.Form):
     class Meta:
         model = Journey
         fields = [
-            'when',
+            'date',
+            'hour',
             'people',
             'miles',
             'toll',
@@ -33,7 +38,8 @@ class JourneyForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
         super(JourneyForm, self).__init__(*args, **kwargs)
-        self.fields['when'].widget.attrs.update({'class': 'form-control'})
+        self.fields['date'].widget.attrs.update({'class': 'form-control'})
+        self.fields['hour'].widget.attrs.update({'class': 'form-control'})
         self.fields['people'].widget.attrs.update({'class': 'form-control'})
         self.fields['miles'].widget.attrs.update({'class': 'form-control'})
         self.fields['toll'].widget.attrs.update({'class': 'form-control'})

@@ -1,3 +1,4 @@
+from django.core.urlresolvers import reverse
 from django.db import models
 import datetime
 from django.utils import timezone
@@ -22,8 +23,15 @@ class BankHoliday(models.Model):
 
 
 class Journey(models.Model):
-    when    = models.DateTimeField(default=timezone.now)
+    name    = models.CharField(max_length=25, default='quote')
+    date    = models.DateField()
+    hour    = models.TimeField()
     people  = models.IntegerField()
     miles   = models.DecimalField(max_digits=5, decimal_places=2)
     toll    = models.DecimalField(max_digits=5, decimal_places=2)
 
+    def __str__(self):
+        return self.date.strftime('%Y-%m-%d') + ', ' + self.hour.strftime('%H:%M')
+
+    def get_absolute_url(self):
+        return reverse('update', kwargs={'pk': self.pk})

@@ -1,20 +1,31 @@
-from django.shortcuts import render
-from django.views.generic import CreateView
+from django.views.generic import CreateView, UpdateView
+
 from .forms import JourneyForm
-from .models import BankHoliday, Tariff
+from .models import BankHoliday, Tariff, Journey
 
 
-def index(request):
-    return render(request, 'main/index.html')
+class HomeCreateView(CreateView):
+    template_name = 'main/index.html'
+    form_class = JourneyForm
 
 
-def check(request):
-    form = JourneyForm(request.POST or None)
-    if request.method == 'POST':
-        if form.is_valid():
-            form.save(commit=False)
-            return render(request, 'main/index.html', {'form': form})
-    else:
-        form = JourneyForm()
+class HomeUpdateView(UpdateView):
+    template_name = 'main/index.html'
+    form_class = JourneyForm
 
-    return render(request, 'main/index.html', {'form': form})
+    def get_queryset(self):
+        # obj = Journey.objects.filter(name='quote')
+        try:
+            # return Journey.objects.filter(pk=obj[0].pk)
+            return Journey.objects.filter(name='quote')
+        except:
+            pass
+
+    # def get_context_data(self, *args, **kwargs):
+    #     context = super(HomeUpdateView, self).get_context_data(*args, **kwargs)
+    #     return context
+
+    # def get_form_kwargs(self):
+    #     kwargs = super(HomeUpdateView, self).get_form_kwargs()
+    #     print(kwargs)
+    #     return kwargs
