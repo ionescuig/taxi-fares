@@ -10,6 +10,7 @@ The fare is not fixed, is affected by the traffic and tolls (ex: for Cornwall),
 for 1-2 people (each extra passenger after the second passenger: 20p).
 """
 
+import datetime
 from time import strftime
 
 
@@ -18,49 +19,58 @@ def check_tariff(date, hour, bank_holiday):
     Check the tariff for a date and time.
     """
 
-    tariff_choice = ''
+    WEEKDAY = date.strftime('%A')
+    MONTH = date.strftime('%m')
+    DAY = date.strftime('%d')
+    TIME_HOUR = int(hour.strftime('%H'))
+    tariff = ''
 
     # calculate the right tariff
-    if bank_holiday or date.strftime('%A') == 'Sunday':
-        if 6 <= int(hour.strftime('%H')) < 19:
-            tariff_choice = 'tariff_2'
-        elif int(hour.strftime('%H')) >= 19:
-            tariff_choice = 'tariff_3'
-    elif date.strftime('%m') == '01':
-        if date.strftime('%d') == '01':
-            if int(hour.strftime('%H')) < 7:
-                tariff_choice = 'tariff_5'
-            else:
-                tariff_choice = 'tariff_4'
-        elif date.strftime('%d') == '02':
-            if int(hour.strftime('%H')) < 7:
-                tariff_choice = 'tariff_4'
-    elif date.strftime('%m') == '12':
-        if date.strftime('%d') == '24' and int(hour.strftime('%H')) > 19:
-            tariff_choice = 'tariff_4'
-        elif date.strftime('%d') == '25':
-            if int(hour.strftime('%H')) < 7:
-                tariff_choice = 'tariff_4'
-            else:
-                tariff_choice = 'tariff_5'
-        elif date.strftime('%d') == '26':
-            if int(hour.strftime('%H')) < 7:
-                tariff_choice = 'tariff_5'
-            else:
-                tariff_choice = 'tariff_4'
-        elif date.strftime('%d') == '27':
-            if int(hour.strftime('%H')) < 7:
-                tariff_choice = 'tariff_4'
-        elif date.strftime('%d') == '31' and 19 <= int(hour.strftime('%H')):
-            tariff_choice = 'tariff_4'
-    elif 6 <= int(hour.strftime('%H')) < 19:
-        tariff_choice = 'tariff_1'
-    elif int(hour.strftime('%H')) >= 19:
-        tariff_choice = 'tariff_2'
+    if bank_holiday is True or WEEKDAY == 'Sunday':
+        if TIME_HOUR > 19:
+            tariff = 'three'
+        elif TIME_HOUR > 6:
+            tariff = 'two'
+        else:
+            tariff = 'three'
+    elif TIME_HOUR > 19:
+        tariff = 'two'
+    elif TIME_HOUR > 6:
+        tariff = 'one'
     else:
-        tariff_choice = 'tariff_3'
+        tariff = 'three'
 
-    return tariff_choice
+    if MONTH == '12':
+        if DAY == '24':
+            if TIME_HOUR > 19:
+                tariff = 'four'
+        elif DAY == '25':
+            if TIME_HOUR < 7:
+                tariff = 'four'
+            else:
+                tariff = 'five'
+        elif DAY == '26':
+            if TIME_HOUR < 7:
+                tariff = 'five'
+            else:
+                tariff = 'four'
+        elif DAY == '27':
+            if TIME_HOUR < 7:
+                tariff = 'four'
+        elif DAY == '31':
+            if TIME_HOUR > 19:
+                tariff = 'four'
+    elif MONTH == '01':
+        if DAY == '01':
+            if TIME_HOUR < 7:
+                tariff = 'five'
+            else:
+                tariff = 'four'
+        elif DAY == '02':
+            if TIME_HOUR < 7:
+                tariff = 'four'
+
+    return tariff
 
 
 def calculate_tariff(tariff_fare, miles, no_of_people, toll):
@@ -86,7 +96,8 @@ def calculate_tariff(tariff_fare, miles, no_of_people, toll):
         
     # print('tariff: ', tariff_choice)
     print('Fare: %.2f' % fare)
-    
+
+
 if __name__ == "__main__":
     """
     as a standalone:
@@ -103,5 +114,8 @@ if __name__ == "__main__":
         toll = float(toll)
     else:
         toll = 0
-    calculate(strftime, no_of_miles, no_of_people, toll)
+    test_tariff = check_tariff(datetime.datetime(2019, 5, 6, 2, 51, 5),
+                               datetime.datetime(2019, 5, 6, 2, 51, 5),
+                               bank_holiday=True)
+    print(test_tariff)
     input("\nPress any key to exit...")

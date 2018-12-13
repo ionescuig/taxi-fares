@@ -36,11 +36,6 @@ class HomeUpdateView(UpdateView):
                 bank_holiday = True
 
         tariff_fare = check_tariff(date, hour, bank_holiday)
-        print(tariff_fare)
-
-        # check_tariff(date, hour, bank_holiday):
-        #   - not working for 4/12/2018 22:51
-        #   - not working for bank holiday midnight to morning
-        #   - check all
+        print('>>> tariff: ', tariff_fare)
 
         return context
