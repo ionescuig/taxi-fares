@@ -21,6 +21,6 @@ from main import views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.HomeCreateView.as_view(), name='index'),
-    url('^update/(?P<pk>\d+)/$', views.HomeUpdateView.as_view(), name='update'),
-    # url(r'^update/', views.HomeUpdateView.as_view(), name='update'),
+    url(r'^update/(?P<pk>\d+)/$', views.HomeUpdateView.as_view(), name='update'),
+    url(r'^fares/$', views.FaresView.as_view(), name='fares'),
 ]

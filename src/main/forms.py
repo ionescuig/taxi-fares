@@ -22,7 +22,7 @@ class JourneyForm(forms.ModelForm):
                                  min_value=0,
                                  initial=0)
     toll    = forms.DecimalField(label='Toll',
-                                 required=False,
+                                 required=True,
                                  min_value=0,
                                  initial=0)
 

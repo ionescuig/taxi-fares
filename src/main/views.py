@@ -1,6 +1,6 @@
-from django.views.generic import CreateView, UpdateView
+from django.views.generic import CreateView, UpdateView, TemplateView
 
-from .calculator import check_tariff
+from .calculator import check_tariff, calculate_fare
 from .forms import JourneyForm
 from .models import BankHoliday, Tariff, Journey
 
@@ -36,6 +36,33 @@ class HomeUpdateView(UpdateView):
                 bank_holiday = True
 
         tariff_fare = check_tariff(date, hour, bank_holiday)
-        print('>>> tariff: ', tariff_fare)
+
+        selected_tariff = Tariff.objects.filter(name=tariff_fare)[0]
+        fare = calculate_fare(
+            [
+                float(selected_tariff.start),
+                float(selected_tariff.first),
+                float(selected_tariff.second),
+                float(selected_tariff.waiting)
+            ],
+            float(miles),
+            float(no_of_people),
+            float(toll)
+        )
+
+        # print('>>> Date: ', date,
+        #       '\t Time: ', hour,
+        #       '\t Miles: ', miles,
+        #       '\t Passengers: ', no_of_people,
+        #       '\t Toll: ', toll)
+        # print('>>> Tariff: ', tariff_fare,
+        #       '\t Fare: %.2f ' % fare)
+
+        context['tariff'] = selected_tariff
+        context['fare'] = fare
 
         return context
+
+
+class FaresView(TemplateView):
+    template_name = 'main/fares.html'

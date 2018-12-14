@@ -30,11 +30,15 @@
                 This is not an official site.
                 <br>
                 The fare is estimated and is affected by the traffic and tolls.
+                <br>
+                <a href="{% url 'fares' %}">
+                    Table of fares
+                </a>
             </p>
         </div>
 
 {#Main block#}
-        <div class="container row">
+        <div class="container row" style="padding-right: 0">
 
 {#Input block#}
             <div class="col-sm-6">
@@ -60,10 +64,13 @@
             </div>
 
 {#Results block#}
-            <div class="col-sm-4">
-                Not updated yet.
-                <br>
-                Here will be displayed the fare.
+            <div class="col-sm-3"></div>
+            <div class="col-sm-3" style="padding-right: 0">
+                <div class="jumbotron jb_second">
+                    <h3><strong>Fare: £{{ fare|floatformat:2 }}</strong></h3>
+                    <br>
+                    <p>Tariff {{ tariff|lower }}</p>
+                </div>
             </div>
         </div>
     </div>

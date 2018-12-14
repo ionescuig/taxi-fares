@@ -6,12 +6,8 @@
 
 """
 A calculator for the fare for a Hackney Carriage (Black Cab) in Plymouth, UK.
-The fare is not fixed, is affected by the traffic and tolls (ex: for Cornwall),
-for 1-2 people (each extra passenger after the second passenger: 20p).
+The fare is not fixed, is affected by the traffic and tolls (ex: for Cornwall).
 """
-
-import datetime
-from time import strftime
 
 
 def check_tariff(date, hour, bank_holiday):
@@ -28,57 +24,57 @@ def check_tariff(date, hour, bank_holiday):
     # calculate the right tariff
     if bank_holiday is True or WEEKDAY == 'Sunday':
         if TIME_HOUR > 19:
-            tariff = 'three'
+            tariff = 'Three'
         elif TIME_HOUR > 6:
-            tariff = 'two'
+            tariff = 'Two'
         else:
-            tariff = 'three'
+            tariff = 'Three'
     elif TIME_HOUR > 19:
-        tariff = 'two'
+        tariff = 'Two'
     elif TIME_HOUR > 6:
-        tariff = 'one'
+        tariff = 'One'
     else:
-        tariff = 'three'
+        tariff = 'Three'
 
     if MONTH == '12':
         if DAY == '24':
             if TIME_HOUR > 19:
-                tariff = 'four'
+                tariff = 'Four'
         elif DAY == '25':
             if TIME_HOUR < 7:
-                tariff = 'four'
+                tariff = 'Four'
             else:
-                tariff = 'five'
+                tariff = 'Five'
         elif DAY == '26':
             if TIME_HOUR < 7:
-                tariff = 'five'
+                tariff = 'Five'
             else:
-                tariff = 'four'
+                tariff = 'Four'
         elif DAY == '27':
             if TIME_HOUR < 7:
-                tariff = 'four'
+                tariff = 'Four'
         elif DAY == '31':
             if TIME_HOUR > 19:
-                tariff = 'four'
+                tariff = 'Four'
     elif MONTH == '01':
         if DAY == '01':
             if TIME_HOUR < 7:
-                tariff = 'five'
+                tariff = 'Five'
             else:
-                tariff = 'four'
+                tariff = 'Four'
         elif DAY == '02':
             if TIME_HOUR < 7:
-                tariff = 'four'
+                tariff = 'Four'
 
     return tariff
 
 
-def calculate_tariff(tariff_fare, miles, no_of_people, toll):
+def calculate_fare(tariff, miles, no_of_people, toll):
     # calculate the fare
     if miles < 0.1:
-        fare = tariff_choice[0]
+        fare = tariff[0]
     elif miles == 0.1:
-        fare = tariff_choice[0] + tariff_choice[1]
+        fare = tariff[0] + tariff[1]
     else:
         multiplier = (miles - 0.2) // 0.2
 
@@ -86,36 +82,12 @@ def calculate_tariff(tariff_fare, miles, no_of_people, toll):
             waiting = miles
         else:
             waiting = 5
-        waiting_time = ((waiting * tariff_choice[3]) // tariff_choice[3]) * tariff_choice[3]
+        waiting_time = ((waiting * tariff[3]) // tariff[3]) * tariff[3]
 
-        fare = tariff_choice[0] + tariff_choice[1] + tariff_choice[2] * multiplier + waiting_time
+        fare = tariff[0] + tariff[1] + tariff[2] * multiplier + waiting_time
     if no_of_people > 2:
         fare += (no_of_people - 2) * 0.2
     if toll:
         fare += toll
         
-    # print('tariff: ', tariff_choice)
-    print('Fare: %.2f' % fare)
-
-
-if __name__ == "__main__":
-    """
-    as a standalone:
-    calculates the fare for this hour, for a selected number of miles
-    """
-    no_of_miles = float(input("Miles: "))
-    no_of_people = input("Number of people: ")
-    if no_of_people:
-        no_of_people = int(no_of_people)
-    else:
-        no_of_people = 1
-    toll = input("Toll: ")
-    if toll:
-        toll = float(toll)
-    else:
-        toll = 0
-    test_tariff = check_tariff(datetime.datetime(2019, 5, 6, 2, 51, 5),
-                               datetime.datetime(2019, 5, 6, 2, 51, 5),
-                               bank_holiday=True)
-    print(test_tariff)
-    input("\nPress any key to exit...")
+    return fare
