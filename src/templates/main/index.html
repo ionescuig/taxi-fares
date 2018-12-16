@@ -1,81 +1,55 @@
-<!DOCTYPE html>
-{% load staticfiles %}
+{% extends 'main/base.html' %}
 
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Taxi Fare Calculator</title>
+{% block description %}
+    <p>
+        This is not an official site.
+        <br>
+        The fare is estimated and is affected by the traffic and tolls.
+        <br>
+        <a href="{% url 'fares' %}">
+            <strong>Table of fares</strong>
+        </a>
+    </p>
+{% endblock %}
 
-    <!--Bootstrap 4.1.3-->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-          crossorigin="anonymous">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
-            integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-            crossorigin="anonymous"></script>
-
-    <!--Custom CSS-->
-    <link rel="stylesheet" href="{% static 'css/index.css' %}">
-</head>
-<body>
-
-{#Details block#}
-    <div class="container">
-        <div class="jumbotron">
-            <h1>Taxi Fare Calculator</h1>
-            <h5>Hackney Carriage - Plymouth, UK</h5>
-        </div>
-        <div class="container jumbotron jb_second">
-            <p>
-                This is not an official site.
-                <br>
-                The fare is estimated and is affected by the traffic and tolls.
-                <br>
-                <a href="{% url 'fares' %}">
-                    Table of fares
-                </a>
-            </p>
-        </div>
-
-{#Main block#}
-        <div class="container row" style="padding-right: 0">
+{% block main %}
+    <div class="row" style="padding-right: 0">
 
 {#Input block#}
-            <div class="col-sm-6">
-                <form class="form" method="POST">
-                    {% csrf_token %}
-                    {% for field in form %}
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">{{ field.label }}</label>
-                            {% if field.name == 'date' %}
-                                <div class="col-sm-8 form-inline">
-                                    {{ field }}
-                                </div>
-                            {% else %}
-                                <div class="col-sm-3">
-                                    {{ field }}
-                                </div>
-                            {% endif %}
-                            {{ field.errors }}
-                        </div>
-                    {% endfor %}
-                    <button class="btn btn-secondary" type="submit">Submit</button>
-                </form>
-            </div>
+        <div class="col-sm-6">
+            <form class="form" method="POST">
+                {% csrf_token %}
+                {% for field in form %}
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">{{ field.label }}</label>
+                        {% if field.name == 'date' %}
+                            <div class="col-sm-8 form-inline">
+                                {{ field }}
+                            </div>
+                        {% else %}
+                            <div class="col-sm-3">
+                                {{ field }}
+                            </div>
+                        {% endif %}
+                        {{ field.errors }}
+                    </div>
+                {% endfor %}
+                <button class="btn btn-secondary" type="submit">Submit</button>
+            </form>
+        </div>
+
+{#Empty block#}
+        <div class="col-sm-3"></div>
 
 {#Results block#}
-            <div class="col-sm-3"></div>
-            <div class="col-sm-3" style="padding-right: 0">
-                <div class="jumbotron jb_second">
-                    <h3><strong>Fare: £{{ fare|floatformat:2 }}</strong></h3>
-                    <br>
-                    <p>Tariff {{ tariff|lower }}</p>
-                </div>
+        <div class="col-sm-3" style="padding-right: 0">
+            <div class="jumbotron jb_second">
+                <h3><strong>Fare: £{{ fare|floatformat:2 }}</strong></h3>
+                <br>
+                <p>Tariff {{ tariff|lower }}</p>
             </div>
         </div>
+
     </div>
+{% endblock %}
 
-
-
-</body>
-</html>

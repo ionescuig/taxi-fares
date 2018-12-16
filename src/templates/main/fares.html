@@ -1,164 +1,143 @@
-<!DOCTYPE html>
-{% load staticfiles %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Taxi Fare Calculator|Fares</title>
+{% extends 'main/base.html' %}
 
-    <!--Bootstrap 4.1.3-->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+{% block description %}
+    <p>
+        This is not an official site.
+        <br>
+        <a href="https://www.plymouth.gov.uk/parkingandtravel/publictransport/taxis">
+            <strong>Plymouth City Council</strong>
+        </a>
+        sets the fares that hackney carriages can charge. Different fares apply at different times.
+        <br>
+        The official table of fares can be found on
+        <a href="https://www.plymouth.gov.uk/parkingandtravel/publictransport/taxis">
+            <strong>Plymouth City Council</strong>
+        </a>
+        website.
+    </p>
+{% endblock %}
 
-    <!--Custom CSS-->
-    <link rel="stylesheet" href="{% static 'css/index.css' %}">
-</head>
-<body>
+{% block main %}
+    <p class="text-right">
+        <a href="{% url 'index'%}" class="btn btn-success" role="button" aria-disabled="true">
+            Main Page
+        </a>
+    </p>
+    <br><br>
+
     <div class="container">
-        <div class="jumbotron">
-            <h1>Table of fares</h1>
-            <h5>Hackney Carriage - Plymouth, UK</h5>
-        </div>
-        <div class="container jumbotron jb_second">
-            <p>
-                This is not an official site.
-                <br>
-                <u>Plymouth City Council</u> sets the fares that hackney carriages can charge. Different fares apply at different times.
-                <br>
-                The official table of fares can be found on
-                <a href="https://www.plymouth.gov.uk/parkingandtravel/publictransport/taxis">
-                    Plymouth City Council
-                </a>
-                website.
+        <ul style="list-style: none;">
+            <li style="font-size: 2em">
+                <strong>Tariff one</strong><br>
+            </li>
+            <p class="text-muted">
+                Monday to Saturday from 6am to 7pm
             </p>
-        </div>
-
-        <div class="container">
-            <p class="text-right">
-                <a href="{% url 'index'%}" class="text-right">
-                        Main Page
-                </a>
-            </p>
+            <ul>
+                <li>For any distance up to one tenth of a mile:       £3.00</li>
+                <li>The next one tenth of a mile:                     £0.30</li>
+                <li>For each subsequent one fifth of a mile:          £0.30</li>
+                <li>Each completed period of 90 seconds waiting time: £0.30</li>
+            </ul>
             <br><br>
 
-            <div class="container">
-                <ul style="list-style: none;">
-                    <li style="font-size: 2em">
-                        <strong>Tariff one</strong><br>
-                    </li>
-                    <p class="text-muted">
-                        Monday to Saturday from 6am to 7pm
-                    </p>
-                    <ul>
-                        <li>For any distance up to one tenth of a mile:       £3.00</li>
-                        <li>The next one tenth of a mile:                     £0.30</li>
-                        <li>For each subsequent one fifth of a mile:          £0.30</li>
-                        <li>Each completed period of 90 seconds waiting time: £0.30</li>
-                    </ul>
-                    <br><br>
-
-                    <li style="font-size: 2em">
-                        <strong>Tariff two</strong><br>
-                    </li>
-                    <p class="text-muted">
-                        Monday to Saturday from 7pm to midnight<br>
-                        Sunday and Bank Holidays from 6am to 7pm
-                    </p>
-                    <ul>
-                        <li>For any distance up to one tenth of a mile:       £3.50</li>
-                        <li>The next one tenth of a mile:                     £0.30</li>
-                        <li>For each subsequent one fifth of a mile:          £0.30</li>
-                        <li>Each completed period of 60 seconds waiting time: £0.30</li>
-                    </ul>
-                    <br><br>
-
-                    <li style="font-size: 2em">
-                        <strong>Tariff three</strong><br>
-                    </li>
-                    <p class="text-muted">
-                        Monday to Sunday from midnight to 6am<br>
-                        Sunday and Bank Holidays from 7pm to midnight
-                    </p>
-
-                    <ul>
-                        <li>For any distance up to one tenth of a mile:       £4.00</li>
-                        <li>The next one tenth of a mile:                     £0.30</li>
-                        <li>For each subsequent one fifth of a mile:          £0.30</li>
-                        <li>Each completed period of 60 seconds waiting time: £0.30</li>
-                    </ul>
-                    <br><br>
-
-                    <li style="font-size: 2em">
-                        <strong>Tariff four</strong><br>
-                    </li>
-                    <p class="text-muted">
-                        From 7pm on Christmas Eve to 7am on Christmas Day<br>
-                        From 7am on Boxing Day to 7am on 27 December<br>
-                        From 7pm to midnight on 31 December<br>
-                        From 7am on New Year’s Day to 7am on 2 January
-                    </p>
-                    <ul>
-                        <li>For any distance up to one tenth of a mile:       £4.50</li>
-                        <li>The next one tenth of a mile:                     £0.45</li>
-                        <li>For each subsequent one fifth of a mile:          £0.45</li>
-                        <li>Each completed period of 60 seconds waiting time: £0.45</li>
-                    </ul>
-                    <br><br>
-
-                    <li style="font-size: 2em">
-                        <strong>Tariff five</strong><br>
-                    </li>
-                    <p class="text-muted">
-                        From 7am on Christmas Day to 7am on Boxing Day<br>
-                        New Year's Day from midnight to 7am
-                    </p>
-                    <ul>
-                        <li>For any distance up to one tenth of a mile:       £6.00</li>
-                        <li>The next one tenth of a mile:                     £0.60</li>
-                        <li>For each subsequent one fifth of a mile:          £0.60</li>
-                        <li>Each completed period of 60 seconds waiting time: £0.60</li>
-                    </ul>
-                    <br><br><br><br>
-
-                    <li style="font-size: 2em">
-                        <strong>Extra charges</strong><br>
-                    </li>
-                    <p class="text-muted">
-                        One-off charges per journey
-                    </p>
-                    <ul>
-                        <li>Each additional passenger after the second
-                            (accompanied children under the age of 3 are not charged,
-                            two children between 3 & 12 to be charged as one): 20p</li>
-                        <li>Entrance to MOD establishments, booking fee,
-                            or from Plymouth Railway Station (subject to permit): 40p</li>
-                        <li>For each uncaged animal (except working service dogs): 30p</li>
-                        <li>Fuel- to be added to each hiring if and when fuel oil is at £1.40
-                            at Exeter Street Service Station with a further 10p for each subsequent increase
-                            of 10p per litre: 10p</li>
-                        <li>For any soiling of the vehicle, inside or out: £50</li>
-                        <li>Toll charges at current rate for return journey</li>
-                    </ul>
-                    <br>
-                    <li>
-                        <strong>Out of city and extended period hirings: </strong>
-                        The fare for any hiring with a destination outside the licensing area can be negotiated
-                        with the driver <strong>before the commencement of the journey</strong> or run on the meter.
-                        Hirings may be undertaken without the use of the meter where there is a prior contract
-                        with a public auhtority or for a period in excess of one hour.
-                    </li>
-                </ul>
-            </div>
-
-            <br><br>
-             <p class="text-right">
-                <a href="{% url 'index'%}" class="text-right">
-                        Main Page
-                </a>
+            <li style="font-size: 2em">
+                <strong>Tariff two</strong><br>
+            </li>
+            <p class="text-muted">
+                Monday to Saturday from 7pm to midnight<br>
+                Sunday and Bank Holidays from 6am to 7pm
             </p>
-        </div>
+            <ul>
+                <li>For any distance up to one tenth of a mile:       £3.50</li>
+                <li>The next one tenth of a mile:                     £0.30</li>
+                <li>For each subsequent one fifth of a mile:          £0.30</li>
+                <li>Each completed period of 60 seconds waiting time: £0.30</li>
+            </ul>
+            <br><br>
 
+            <li style="font-size: 2em">
+                <strong>Tariff three</strong><br>
+            </li>
+            <p class="text-muted">
+                Monday to Sunday from midnight to 6am<br>
+                Sunday and Bank Holidays from 7pm to midnight
+            </p>
 
+            <ul>
+                <li>For any distance up to one tenth of a mile:       £4.00</li>
+                <li>The next one tenth of a mile:                     £0.30</li>
+                <li>For each subsequent one fifth of a mile:          £0.30</li>
+                <li>Each completed period of 60 seconds waiting time: £0.30</li>
+            </ul>
+            <br><br>
+
+            <li style="font-size: 2em">
+                <strong>Tariff four</strong><br>
+            </li>
+            <p class="text-muted">
+                From 7pm on Christmas Eve to 7am on Christmas Day<br>
+                From 7am on Boxing Day to 7am on 27 December<br>
+                From 7pm to midnight on 31 December<br>
+                From 7am on New Year’s Day to 7am on 2 January
+            </p>
+            <ul>
+                <li>For any distance up to one tenth of a mile:       £4.50</li>
+                <li>The next one tenth of a mile:                     £0.45</li>
+                <li>For each subsequent one fifth of a mile:          £0.45</li>
+                <li>Each completed period of 60 seconds waiting time: £0.45</li>
+            </ul>
+            <br><br>
+
+            <li style="font-size: 2em">
+                <strong>Tariff five</strong><br>
+            </li>
+            <p class="text-muted">
+                From 7am on Christmas Day to 7am on Boxing Day<br>
+                New Year's Day from midnight to 7am
+            </p>
+            <ul>
+                <li>For any distance up to one tenth of a mile:       £6.00</li>
+                <li>The next one tenth of a mile:                     £0.60</li>
+                <li>For each subsequent one fifth of a mile:          £0.60</li>
+                <li>Each completed period of 60 seconds waiting time: £0.60</li>
+            </ul>
+            <br><br><br><br>
+
+            <li style="font-size: 2em">
+                <strong>Extra charges</strong><br>
+            </li>
+            <p class="text-muted">
+                One-off charges per journey
+            </p>
+            <ul>
+                <li>Each additional passenger after the second
+                    (accompanied children under the age of 3 are not charged,
+                    two children between 3 & 12 to be charged as one): 20p</li>
+                <li>Entrance to MOD establishments, booking fee,
+                    or from Plymouth Railway Station (subject to permit): 40p</li>
+                <li>For each uncaged animal (except working service dogs): 30p</li>
+                <li>Fuel- to be added to each hiring if and when fuel oil is at £1.40
+                    at Exeter Street Service Station with a further 10p for each subsequent increase
+                    of 10p per litre: 10p</li>
+                <li>For any soiling of the vehicle, inside or out: £50</li>
+                <li>Toll charges at current rate for return journey</li>
+            </ul>
+            <br>
+            <li>
+                <strong>Out of city and extended period hirings: </strong>
+                The fare for any hiring with a destination outside the licensing area can be negotiated
+                with the driver <strong>before the commencement of the journey</strong> or run on the meter.
+                Hirings may be undertaken without the use of the meter where there is a prior contract
+                with a public auhtority or for a period in excess of one hour.
+            </li>
+        </ul>
     </div>
 
-</body>
-</html>
+    <br><br>
+     <p class="text-right">
+        <a href="{% url 'index'%}" class="btn btn-success" role="button" aria-disabled="true">
+            Main Page
+        </a>
+    </p>
+{% endblock %}

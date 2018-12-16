@@ -28,17 +28,22 @@
 }
 
 a:link {
-    color: #00693e;
+    color: #F9FBFA;
 }
 
 a:visited {
-    color: #00693e;
+    color: #F9FBFA;
 }
 
 a:visited {
-    color: #00693e;
+    color: #F9FBFA;
 }
 
 a:hover {
-    color: #00693e;
+    color: #F9FBFA;
+}
+
+.btn-success {
+    background-color: #009036;
+    color: #F9FBFA;
 }
