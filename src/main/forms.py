@@ -1,7 +1,7 @@
 from django import forms
 from datetime import datetime
 
-from .models import Journey
+from .models import Journey, Tariff
 
 
 class JourneyForm(forms.ModelForm):
@@ -45,3 +45,14 @@ class JourneyForm(forms.ModelForm):
         self.fields['toll'].widget.attrs.update({'class': 'form-control'})
 
 
+class TariffForm(forms.ModelForm):
+    class Meta:
+        model = Tariff
+        fields = [
+            'name',
+            'description',
+            'start',
+            'first',
+            'second',
+            'waiting',
+        ]

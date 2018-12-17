@@ -22,5 +22,5 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.HomeCreateView.as_view(), name='index'),
     url(r'^update/(?P<pk>\d+)/$', views.HomeUpdateView.as_view(), name='update'),
-    url(r'^fares/$', views.FaresView.as_view(), name='fares'),
+    url(r'^fares/$', views.FaresListView.as_view(), name='fares'),
 ]

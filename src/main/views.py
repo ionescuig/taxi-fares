@@ -1,4 +1,4 @@
-from django.views.generic import CreateView, UpdateView, TemplateView
+from django.views.generic import CreateView, ListView, UpdateView, TemplateView
 
 from .calculator import check_tariff, calculate_fare
 from .forms import JourneyForm
@@ -64,5 +64,8 @@ class HomeUpdateView(UpdateView):
         return context
 
 
-class FaresView(TemplateView):
+class FaresListView(ListView):
     template_name = 'main/fares.html'
+
+    def get_queryset(self):
+        return Tariff.objects.all()

@@ -5,14 +5,26 @@ from django.utils import timezone
 
 
 class Tariff(models.Model):
-    name    = models.CharField(max_length=10)
-    start   = models.DecimalField(max_digits=5, decimal_places=2)
-    first   = models.DecimalField(max_digits=5, decimal_places=2)
-    second  = models.DecimalField(max_digits=5, decimal_places=2)
-    waiting = models.DecimalField(max_digits=5, decimal_places=2)
+    name        = models.CharField(max_length=20)
+    description = models.TextField(default='')
+    start       = models.DecimalField(max_digits=5, decimal_places=2)
+    start_label = models.CharField(max_length=100,
+                                   default='For any distance up to one tenth of a mile')
+    first       = models.DecimalField(max_digits=5, decimal_places=2)
+    first_label = models.CharField(max_length=100,
+                                   default='The next one tenth of a mile')
+    second      = models.DecimalField(max_digits=5, decimal_places=2)
+    second_label = models.CharField(max_length=100,
+                                    default='For each subsequent one fifth of a mile')
+    waiting     = models.DecimalField(max_digits=5, decimal_places=2)
+    waiting_label = models.CharField(max_length=100,
+                                     default='Each completed period of 60 seconds waiting time')
 
     def __str__(self):
         return self.name
+
+    def get_description(self):
+        return self.description.split(",")
 
 
 class BankHoliday(models.Model):
