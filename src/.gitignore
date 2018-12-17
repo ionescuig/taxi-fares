@@ -1,0 +1,12 @@
+src/fares/settings/local.py
+local.py
+local.*
+
+db.sqlite3
+
+venv/
+__pycache__/
+.idea/
+
+*.pyc
+*.key
