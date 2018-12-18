@@ -16,18 +16,18 @@
     <div class="row" style="padding-right: 0">
 
 {#Input block#}
-        <div class="col-sm-6">
+        <div class="col-sm-6 col-md-6">
             <form class="form" method="POST">
                 {% csrf_token %}
                 {% for field in form %}
                     <div class="form-group row">
-                        <label class="col-sm-2 col-form-label">{{ field.label }}</label>
+                        <label class="col-sm-3 col-md-2 col-form-label">{{ field.label }}</label>
                         {% if field.name == 'date' %}
                             <div class="col-sm-8 form-inline">
                                 {{ field }}
                             </div>
                         {% else %}
-                            <div class="col-sm-3">
+                            <div class="col-sm-5 col-md-4 col-lg-3">
                                 {{ field }}
                             </div>
                         {% endif %}
@@ -35,14 +35,15 @@
                     </div>
                 {% endfor %}
                 <button class="btn btn-secondary" type="submit">Submit</button>
+                <br><br>
             </form>
         </div>
 
 {#Empty block#}
-        <div class="col-sm-3"></div>
+        <div class="col-sm-2 col-lg-3"></div>
 
 {#Results block#}
-        <div class="col-sm-3" style="padding-right: 0">
+        <div class="col-sm-4 col-md-4 col-lg-3" style="padding-right: 0">
             <div class="jumbotron jb_second">
                 <h3><strong>Fare: £{{ fare|floatformat:2 }}</strong></h3>
                 <br>
